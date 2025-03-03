@@ -168,6 +168,10 @@ FrameCollectorDelegate, HTTPHandlerDelegate {
             
             broadcast(event: .cancelled)
         case .peerClosed:
+            mutex.wait()
+            isConnecting = false
+            mutex.signal()
+
             broadcast(event: .peerClosed)
         }
     }
